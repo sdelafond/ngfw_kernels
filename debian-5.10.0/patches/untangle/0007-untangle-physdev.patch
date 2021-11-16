@@ -26,7 +26,7 @@ diff --git a/net/bridge/br_nf_core.c b/net/bridge/br_nf_core.c
 index 8c69f0c..154fd0a 100644
 --- a/net/bridge/br_nf_core.c
 +++ b/net/bridge/br_nf_core.c
-@@ -15,12 +15,25 @@
+@@ -15,12 +15,27 @@
  #include <linux/in_route.h>
  #include <linux/inetdevice.h>
  #include <net/route.h>
@@ -40,13 +40,15 @@ index 8c69f0c..154fd0a 100644
  
 +static inline struct nf_bridge_info *nf_bridge_alloc(struct sk_buff *skb)
 +{
-+        nf_bridge_info_get(skb) = kzalloc(sizeof(struct nf_bridge_info), GFP_ATOMIC);
++        struct nf_bridge_info nf_b_i = nf_bridge_info_get(skb);
 +
-+        if (likely(nf_bridge_info_get(skb))) {
-+                refcount_set(&(nf_bridge_info_get(skb)->use), 1);
++        nf_b_i = kzalloc(sizeof(struct nf_bridge_info), GFP_ATOMIC);
++
++        if (likely(nf_b_i)) {
++                refcount_set(&(nf_b_i)->use), 1);
 +        }
 +
-+        return nf_bridge_info_get(skb);
++        return nf_b_i;
 +}
 +
  static void fake_update_pmtu(struct dst_entry *dst, struct sock *sk,
