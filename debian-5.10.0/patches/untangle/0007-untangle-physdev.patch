@@ -26,11 +26,12 @@ diff --git a/net/bridge/br_nf_core.c b/net/bridge/br_nf_core.c
 index 8c69f0c..154fd0a 100644
 --- a/net/bridge/br_nf_core.c
 +++ b/net/bridge/br_nf_core.c
-@@ -15,12 +15,24 @@
+@@ -15,12 +15,25 @@
  #include <linux/in_route.h>
  #include <linux/inetdevice.h>
  #include <net/route.h>
 +#include <net/arp.h>
++#include <linux/netfilter_bridge.h>
  
  #include "br_private.h"
  #ifdef CONFIG_SYSCTL
